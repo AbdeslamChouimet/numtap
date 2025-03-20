@@ -2,6 +2,7 @@
 [![NPM Version](https://img.shields.io/npm/v/numtap.svg)](https://www.npmjs.com/package/numtap)
 [![License](https://img.shields.io/github/license/AbdeslamChouimet/numtap.svg)](https://github.com/AbdeslamChouimet/numtap/blob/main/LICENSE)
 [![Downloads](https://img.shields.io/npm/dt/numtap.svg)](https://www.npmjs.com/package/numtap)
+[![GitHub release](https://img.shields.io/github/release/AbdeslamChouimet/numtap.svg)](https://github.com/AbdeslamChouimet/numtap/releases)
 
 A vibrant CLI calculator for instant math in your terminal—simple yet powerful.
 

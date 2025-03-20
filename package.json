@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^13.1.0",
+    "mathjs": "^14.3.1"
+  },
+  "name": "numtap",
+  "version": "1.0.0",
+  "description": "A vibrant, interactive CLI calculator for quick math in your terminal",
+  "main": "numtap.cjs",
+  "type": "commonjs",
+  "bin": {
+    "numtap": "./numtap.cjs"
+  },
+  "scripts": {
+    "test": "echo 'No tests yet!' && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdeslamChouimet/numtap.git"
+  },
+  "keywords": [
+    "calculator",
+    "cli",
+    "terminal",
+    "math",
+    "interactive",
+    "node-js"
+  ],
+  "author": "Abdeslam Chouimet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AbdeslamChouimet/numtap/issues"
+  },
+  "homepage": "https://github.com/AbdeslamChouimet/numtap#readme"
+}

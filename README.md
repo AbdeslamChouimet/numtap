@@ -172,7 +172,7 @@ Example:
 ```bash
 numtap -v
 ```
-Output: `1.1.0`
+Output: `1.1.1`
 
 ---
 

@@ -1,25 +1,21 @@
 // src/quickMode.cjs
-// Fixed Quick Mode Implementation
+// Fast and reliable quick mode with clear output
 
 const { evalExpression } = require('./utils.cjs');
 const chalk = require('chalk');
 
-function quickMode(expression) {
+function quickMode(expr) {
   try {
-    if (!expression || typeof expression !== 'string') {
+    if (!expr || typeof expr !== 'string') {
       throw new Error('Invalid input: Expression must be a string');
     }
-    
-    const result = evalExpression(expression);
-    
-    // End the process after the display
-    if (result !== null) {
-      process.exit(0);
-    } else {
-      process.exit(1);
+    const result = evalExpression(expr);
+    if (result !== undefined) {
+      console.log(chalk.green(`Result: ${result}`));
     }
-  } catch (error) {
-    console.error(chalk.red.bold(`Fatal Error: ${error.message}`));
+    process.exit(0);
+  } catch (e) {
+    console.error(chalk.red(`Error: ${e.message}`));
     process.exit(1);
   }
 }

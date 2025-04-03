@@ -1,21 +1,22 @@
-### **Numtap - Command-Line Scientific Calculator**
-
+# Numtap - Command-Line Scientific Calculator
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Node.js: >=14](https://img.shields.io/badge/Node.js->=14-green.svg)](https://nodejs.org)
 [![npm](https://img.shields.io/npm/v/numtap.svg)](https://www.npmjs.com/package/numtap)
 [![Downloads](https://img.shields.io/npm/dt/numtap.svg)](https://www.npmjs.com/package/numtap)
 [![Size](https://img.shields.io/bundlephobia/min/numtap)](https://bundlephobia.com/package/numtap)
 
-**Numtap** is a command-line calculator engineered for precision, efficiency, and scientific computation within the terminal. Designed for developers, engineers, and mathematicians, it delivers rapid calculations and a robust REPL experience, tailored for those who value functionality over flourish.
+**Numtap** is a powerful, lightweight command-line calculator designed for precision and speed in scientific computations. Tailored for developers, engineers, and math enthusiasts, it offers both quick evaluations and an enriched interactive REPL experience, all within the terminal. With version 1.2.0, Numtap brings enhanced unit conversions, multilingual support, and robust error handling—making it your go-to tool for terminal-based calculations.
 
 ---
 
 ## Table of Contents
 - [Overview](#overview)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Quick Start](#quick-start)
 - [Usage](#usage)
 - [Commands (Interactive Mode)](#commands-interactive-mode)
-- [Supported Operations and Data Types](#supported-operations-and-data-types)
+- [Supported Operations and Features](#supported-operations-and-features)
 - [Command-Line Interface Options](#command-line-interface-options)
 - [Technical Design](#technical-design)
 - [Examples of Use](#examples-of-use)
@@ -31,23 +32,28 @@
 
 ## Overview
 
-Numtap integrates a lightweight architecture with a comprehensive set of mathematical operations, supporting both single-expression evaluations and interactive sessions. Leveraging a customized `mathjs` core, it balances performance with utility, making it an indispensable tool for terminal-based workflows.
+Numtap combines a streamlined architecture with a rich feature set, powered by a customized `mathjs` core. Whether you need a quick result or a persistent calculation session, Numtap delivers with minimal overhead and maximum utility. Version 1.2.0 introduces expanded unit conversions (e.g., temperature and volume), multilingual error messages, and optimized performance—perfect for professionals and hobbyists alike.
+
+---
+
+## Prerequisites
+
+- **Node.js**: Version 14.0.0 or higher (download from [nodejs.org](https://nodejs.org)).
+- **npm**: Included with Node.js installation.
 
 ---
 
 ## Installation
 
-To install Numtap globally:
+Install Numtap globally via npm:
 
 ```bash
 npm install -g numtap
 ```
 
-**Requirements**:  
-- Node.js version 14.0.0 or higher.  
-- Dependencies: `chalk`, `commander`, `mathjs` (no additional runtimes required).
+**Dependencies**: `chalk`, `commander`, `figlet`, `mathjs`.
 
-For source installation:  
+For source installation:
 ```bash
 git clone https://github.com/AbdeslamChouimet/numtap.git
 cd numtap
@@ -57,56 +63,82 @@ npm link
 
 ---
 
+## Quick Start
+
+1. Install Numtap:
+   ```bash
+   npm install -g numtap
+   ```
+2. Try a quick calculation:
+   ```bash
+   numtap "5 + 3"
+   ```
+3. Explore interactive mode:
+   ```bash
+   numtap
+   ```
+   Then type `.help` for commands.
+
+---
+
 ## Usage
 
-Numtap operates in two modes to suit varying needs:
+Numtap supports two modes to fit your workflow:
 
 ### 1. Quick Mode
-Evaluate a single expression directly:  
+Evaluate a single expression instantly:
 ```bash
 numtap "2 + 3 * (4 - 1)"
 ```
-Output:  
+Output:
 ```
-~> Result: 11
+Result: 11
+Time taken: 9.12 ms
 ```
 
 ### 2. Interactive Mode
-Launch a persistent session for chained calculations (REPL: Read-Eval-Print Loop, a real-time interactive environment):  
+Launch a REPL session for continuous calculations:
 ```bash
 numtap
 ```
-Example session:  
+Example session:
 ```
-•| Welcome to Numtap
-•| Tip => Type "help" for commands, "exit" to quit
-~> Input: x = 5
-~> Input: y = x + 2
-~> Input: y * sin(30 deg)
-~> Result: 3.5
-~> Input: exit
-•| Session ended • Total calculations: 1
+  _   _                 _
+ | \ | |_   _ _ __ ___ | |_ __ _ _ __
+ |  \| | | | | '_ ` _ \| __/ _` | '_ \
+ | |\  | |_| | | | | | | || (_| | |_) |
+ |_| \_|\__,_|_| |_| |_|\__\__,_| .__/
+                                |_|
+
+Welcome to Numtap! Type ".help" for commands
+➤ x = 5
+➤ y = x + 2
+➤ y * sin(30 deg)
+= 3.5
+Time taken: 8.45 ms
+➤ .exit
+Goodbye! Total calculations: 1
 ```
 
 ---
 
 ## Commands (Interactive Mode)
 
-Numtap provides the following commands:  
-- `help`, `h`: Lists available commands and operations.  
-- `clear`, `cls`: Clears the terminal display.  
-- `last`, `l`: Retrieves the most recent result.  
-- `history`, `his`: Displays all calculations with timestamps.  
-- `version`, `v`: Shows the current version (1.1.0).  
-- `exit`, `q`: Terminates the session.
+In interactive mode, use these commands:
+- `.help`, `.h`: Display available commands.
+- `.clear`, `.cls`: Clear the terminal screen.
+- `.last`, `.l`: Show the last result.
+- `.history`, `.his`: View calculation history with timestamps.
+- `.version`, `.v`: Display version (1.2.0).
+- `.exit`, `.q`: Exit the session.
 
 ---
 
-## Supported Operations and Data Types
+## Supported Operations and Features
 
-Numtap excels as a scientific and practical calculator through its structured support for a variety of operations and data types, distinguishing it from traditional CLI tools.
+Numtap offers a comprehensive suite of operations and features:
 
-### 1. Fundamental Arithmetic Operations
+### 1. Arithmetic Operations
 | Operation      | Symbol/Function | Example         | Result |
 |----------------|-----------------|-----------------|--------|
 | Addition       | `+`             | `5 + 3`         | 8      |
@@ -118,167 +150,170 @@ Numtap excels as a scientific and practical calculator through its structured su
 | Modulo         | `%`             | `467 % 68`      | 59     |
 
 ### 2. Scientific Functions
-| Category         | Supported Functions                            | Example            | Approximate Result |
-|------------------|------------------------------------------------|-------------------|---------------------|
-| Trigonometric    | `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()` | `sin(45 deg)`     | 0.7071             |
-| Logarithmic      | `log(base, value)`, `log10()`, `exp()`          | `log(1000, 10)`   | 3                  |
-| Miscellaneous    | `abs()`, `factorial()` (`!`)                    | `5!`              | 120                |
+| Category         | Functions                              | Example            | Approx. Result |
+|------------------|----------------------------------------|-------------------|----------------|
+| Trigonometric    | `sin()`, `cos()`, `tan()`             | `sin(90 deg)`     | 1              |
+| Logarithmic      | `log(base, value)`, `log10()`, `exp()` | `log10(100)`      | 2              |
+| Miscellaneous    | `abs()`, `factorial()` (`!`)           | `factorial(5)`    | 120            |
 
 ### 3. Variable Management
-- **Definition**: Assign variables for reuse.  
+- Define and reuse variables:
   ```bash
-  ~> Input: x = 5; y = x^2 + 3
-  ~> Result: 28
+  numtap "x = 5; x^2 + 3"
   ```
-- **Subsequent Use**: Reference variables in later expressions.  
-  ```bash
-  ~> Input: y / 4
-  ~> Result: 7
-  ```
+  Output: `Result: 28`
 
 ### 4. Unit Conversions
-| Conversion       | Example             | Result         |
-|------------------|---------------------|----------------|
-| Degrees to Radians | `90 deg to rad`   | π/2 (~1.5708)  |
-| Radians to Degrees | `pi rad to deg`   | 180            |
+| Conversion          | Example               | Result         |
+|---------------------|-----------------------|----------------|
+| Distance            | `2 km to meter`       | 2000 meter     |
+| Temperature         | `25 degC to degF`     | 77 degF        |
+| Volume              | `2 liter to gallon`   | 0.528344 gallon|
+| Angles              | `90 deg to rad`       | 1.5708 rad     |
 
-### 5. Scientific Constants and Special Values
-| Constant/Value | Symbol         | Approximate Value     |
-|----------------|----------------|-----------------------|
-| Pi             | `pi`           | 3.141592653589793     |
-| Euler’s Number | `e`            | 2.718281828459045     |
-| Infinity       | `Infinity`     | ∞ (e.g., `1 / 0`)     |
-| Not a Number   | `NaN`          | NaN (e.g., `0 / 0`)   |
-
-### Comparison with Traditional Tools
-| Feature                | Numtap               | `bc` (UNIX)         | Python REPL         |
-|------------------------|----------------------|---------------------|---------------------|
-| **Arithmetic**         | Full support         | Full support        | Full support        |
-| **Scientific Funcs**   | Trig, logs, etc.     | None natively       | Via `math` module   |
-| **Variables**          | Persistent           | Basic, non-REPL     | Manual scope        |
-| **Special Values**     | `Infinity`, `NaN`    | Limited             | Supported           |
-| **REPL Features**      | History, last result | None                | Basic, no history   |
-
-Numtap’s native support for scientific operations and interactive features sets it apart, eliminating the need for external libraries or complex setups.
+### 5. Special Values
+| Value          | Symbol         | Example         | Result         |
+|----------------|----------------|-----------------|----------------|
+| Pi             | `pi`           | `pi * 2`        | 6.2832         |
+| Euler’s Number | `e`            | `e^1`           | 2.7183         |
+| Infinity       | `Infinity`     | `5 / 0`         | Infinity       |
+| NaN            | `NaN`          | `0 / 0`         | NaN            |
 
 ---
 
 ## Command-Line Interface Options
 
-- `-v`, `--version`: Returns the version (1.1.0).  
-- `-h`, `--help`: Displays usage details and examples.  
+- `-v`, `--version`: Show version (1.2.0).
+- `-h`, `--help`: Display usage and examples.
+- `-l`, `--lang <language>`: Set language for output.
 
-Example:  
+Supported languages:
+| Language | Code | Example Output       |
+|----------|------|----------------------|
+| English  | `en` | `Result: 8`         |
+| Arabic   | `ar` | `النتيجة: 8`       |
+| Russian  | `ru` | `Результат: 8`      |
+| French   | `fr` | `Résultat: 8`       |
+| Spanish  | `es` | `Resultado: 8`      |
+| German   | `de` | `Ergebnis: 8`       |
+| Portuguese | `pt` | `Resultado: 8`    |
+
+Example:
 ```bash
-numtap -v
+numtap --lang ar "5 + 3"
 ```
-Output: `1.1.1`
+Output: `النتيجة: 8`
 
 ---
 
 ## Technical Design
 
-- **Core**: Custom `mathjs` configuration (`matrix: false`, `units: ['deg', 'rad']`) for minimal overhead.  
-- **Output**: Enhanced with `chalk` for legible, color-coded feedback.  
-- **State**: Global `scope` object (a persistent memory for variables) preserves variables across evaluations.
+- **Core**: Optimized `mathjs` with `matrix: false` and `number: 'number'` for speed.
+- **Output**: Color-coded with `chalk` and styled with `figlet` in interactive mode.
+- **State**: Persistent `scope` object for variable storage.
+- **Performance**: Lazy loading and pre-initialization reduce startup time to <50ms for most operations.
 
 ---
 
 ## Examples of Use
 
-- **Arithmetic Precision**:  
+- **Quick Calculation**:
   ```bash
   numtap "5^2 - 3 * 4"
   ```
-  Output: `~> Result: 13`
+  Output: `Result: 13`
 
-- **Scientific Calculation**:  
+- **Scientific Application**:
   ```bash
-  numtap "sin(45 deg) * cos(45 deg)"
+  numtap "sin(45 deg)^2 + cos(45 deg)^2"
   ```
-  Output: `~> Result: 0.5`
+  Output: `Result: 1`
 
-- **Practical Application**:  
+- **Unit Conversion**:
   ```bash
-  numtap "r = 3; pi * r^2"
+  numtap "25 degC to degF"
   ```
-  Output: `~> Result: 28.274333882308138`
+  Output: `Result: 77 degF`
+
+- **Interactive Workflow**:
+  ```bash
+  numtap
+  ➤ r = 3
+  ➤ pi * r^2
+  = 28.274333882308138
+  ```
 
 ---
 
 ## Error Handling
 
-Numtap gracefully manages invalid inputs and edge cases, providing clear feedback:  
-- **Undefined Symbols**:  
-  ```bash
-  numtap "abc + 2"
-  ```
-  Output: `Error: Undefined symbol: abc`  
-- **Syntax Errors**:  
+Numtap provides clear, multilingual error messages:
+- **Syntax Error**:
   ```bash
   numtap "5 + * 3"
   ```
-  Output: `Error: Unexpected operator *`  
-- **Empty Input**:  
+  Output: `Error: Syntax error`
+- **Undefined Symbol**:
   ```bash
-  numtap ""
+  numtap "x + 2"
   ```
-  Launches interactive mode instead of failing.
+  Output: `Error: Undefined symbol`
+- **Special Cases**:
+  ```bash
+  numtap "5 / 0"
+  ```
+  Output: `Error: Result is infinite`
 
-In interactive mode, errors are logged without terminating the session, ensuring a robust user experience.
+Errors in interactive mode are non-disruptive, keeping the session alive.
 
 ---
 
 ## Compatibility
 
-Numtap is compatible with the following operating systems, provided Node.js is installed:  
-- **Linux**: Fully supported on standard distributions.  
-- **macOS**: Compatible with macOS terminals.  
-- **Windows**: Supported via Command Prompt, PowerShell, or Windows Subsystem for Linux (WSL).
+- **Linux**: Fully supported.
+- **macOS**: Terminal-compatible.
+- **Windows**: Works via CMD, PowerShell, or WSL.
+- Requires Node.js >= 14.0.0.
 
 ---
 
 ## Limitations
 
-- **Complex Numbers**: Not supported, focusing on real-number computations.  
-- **Matrix Operations**: Omitted to maintain a lean footprint.  
-- **Symbolic Algebra**: Excluded to prioritize numerical efficiency.
-
-These constraints reflect Numtap’s commitment to speed and simplicity.
+- No complex number support.
+- Matrix operations excluded for efficiency.
+- Focuses on numerical rather than symbolic computation.
 
 ---
 
 ## Roadmap
 
-Numtap is poised for future enhancements based on user needs:  
-- **Complex Number Support**: Potential addition of imaginary and complex arithmetic.  
-- **Extended Unit Conversions**: Support for additional units (e.g., length, time) beyond angles.  
-- **Custom Function Definitions**: Allow users to define reusable functions within sessions.  
-- **Performance Metrics**: Integrate benchmarking for precise evaluation times.
-
-Contributions or feature requests are welcome to shape these developments.
+Future enhancements include:
+- Multilingual command support in interactive mode.
+- More unit conversions (e.g., time, mass).
+- Optional complex number arithmetic.
+- Custom user-defined functions.
 
 ---
 
 ## Contributions
 
-Numtap welcomes contributions from those who appreciate its design:  
-1. Fork: [github.com/AbdeslamChouimet/numtap](https://github.com/AbdeslamChouimet/numtap).  
-2. Submit pull requests with enhancements.  
+Contributions are welcome:
+1. Fork: [github.com/AbdeslamChouimet/numtap](https://github.com/AbdeslamChouimet/numtap).
+2. Submit pull requests.
 3. Report issues: [GitHub Issues](https://github.com/AbdeslamChouimet/numtap/issues).
 
 ---
 
 ## License
 
-Released under the [GNU General Public License v3.0](LICENSE), granting freedom to use, modify, and distribute.
+Licensed under the [GNU General Public License v3.0](LICENSE).
 
 ---
 
 ## Author
 
-Developed by Abdeslam Chouimet under the GNU General Public License v3.0.
+Developed by Abdeslam Chouimet.
 
 ---
 
-Numtap delivers computational excellence to those who seek it—uncompromising, efficient, and terminal-ready.
+Numtap 1.2.0: Precision, power, and simplicity—crafted for the terminal.

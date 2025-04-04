@@ -10,15 +10,176 @@ const math = create(all, {
 
 const scope = {}; // Shared scope for storing variables across calculations
 
-// Language-specific error messages
-const errorMessages = {
-  en: { undefined: 'Undefined symbol', syntax: 'Syntax error', nan: 'Invalid operation (NaN)', infinity: 'Result is infinite' },
-  ar: { undefined: 'رمز غير معرف', syntax: 'خطأ في الصيغة', nan: 'عملية غير صالحة (NaN)', infinity: 'النتيجة لا نهائية' },
-  ru: { undefined: 'Неопределенный символ', syntax: 'Синтаксическая ошибка', nan: 'Недопустимая операция (NaN)', infinity: 'Результат бесконечен' },
-  fr: { undefined: 'Symbole indéfini', syntax: 'Erreur de syntaxe', nan: 'Opération invalide (NaN)', infinity: 'Résultat infini' },
-  es: { undefined: 'Símbolo no definido', syntax: 'Error de sintaxis', nan: 'Operación inválida (NaN)', infinity: 'Resultado infinito' },
-  de: { undefined: 'Undefiniertes Symbol', syntax: 'Syntaxfehler', nan: 'Ungültige Operation (NaN)', infinity: 'Ergebnis ist unendlich' },
-  pt: { undefined: 'Símbolo indefinido', syntax: 'Erro de sintaxe', nan: 'Operação inválida (NaN)', infinity: 'Resultado infinito' }
+// Language-specific messages (unified for quick and interactive modes)
+const messages = {
+  en: {
+    welcome: 'Welcome to Numtap! Type ".help" for commands',
+    goodbye: 'Goodbye! Total calculations:',
+    help: `
+    Commands:
+    .help, .h      - Show this help
+    .exit, .q      - Quit
+    .version, .v   - Show version
+    .last, .l      - Show last result
+    .history, .his - Show calculation history
+    .clear, .cls   - Clear screen
+    `,
+    last: 'Last result:',
+    noResult: 'No results yet.',
+    history: 'Calculation History:',
+    noHistory: 'History is empty.',
+    unknown: 'Unknown command:',
+    result: 'Result',
+    error: 'Error',
+    undefined: 'Undefined symbol',
+    syntax: 'Syntax error',
+    nan: 'Invalid operation (NaN)',
+    infinity: 'Result is infinite'
+  },
+  ar: {
+    welcome: 'مرحبًا بك في Numtap! اكتب ".help" للحصول على الأوامر',
+    goodbye: 'وداعًا! إجمالي الحسابات:',
+    help: `
+    الأوامر:
+    .help, .h      - عرض هذه المساعدة
+    .exit, .q      - إنهاء الجلسة
+    .version, .v   - عرض الإصدار
+    .last, .l      - عرض آخر نتيجة
+    .history, .his - عرض سجل الحسابات
+    .clear, .cls   - مسح الشاشة
+    `,
+    last: 'آخر نتيجة:',
+    noResult: 'لا توجد نتائج بعد.',
+    history: 'سجل الحسابات:',
+    noHistory: 'السجل فارغ.',
+    unknown: 'أمر غير معروف:',
+    result: 'النتيجة',
+    error: 'خطأ',
+    undefined: 'رمز غير معرف',
+    syntax: 'خطأ في الصيغة',
+    nan: 'عملية غير صالحة (NaN)',
+    infinity: 'النتيجة لا نهائية'
+  },
+  ru: {
+    welcome: 'Добро пожаловать в Numtap! Введите ".help" для команд',
+    goodbye: 'До свидания! Всего вычислений:',
+    help: `
+    Команды:
+    .help, .h      - Показать эту справку
+    .exit, .q      - Выйти
+    .version, .v   - Показать версию
+    .last, .l      - Показать последний результат
+    .history, .his - Показать историю вычислений
+    .clear, .cls   - Очистить экран
+    `,
+    last: 'Последний результат:',
+    noResult: 'Результатов пока нет.',
+    history: 'История вычислений:',
+    noHistory: 'История пуста.',
+    unknown: 'Неизвестная команда:',
+    result: 'Результат',
+    error: 'Ошибка',
+    undefined: 'Неопределенный символ',
+    syntax: 'Синтаксическая ошибка',
+    nan: 'Недопустимая операция (NaN)',
+    infinity: 'Результат бесконечен'
+  },
+  fr: {
+    welcome: 'Bienvenue dans Numtap ! Tapez ".help" pour les commandes',
+    goodbye: 'Au revoir ! Total des calculs :',
+    help: `
+    Commandes :
+    .help, .h      - Afficher cette aide
+    .exit, .q      - Quitter
+    .version, .v   - Afficher la version
+    .last, .l      - Afficher le dernier résultat
+    .history, .his - Afficher l’historique des calculs
+    .clear, .cls   - Effacer l’écran
+    `,
+    last: 'Dernier résultat :',
+    noResult: 'Aucun résultat pour l’instant.',
+    history: 'Historique des calculs :',
+    noHistory: 'L’historique est vide.',
+    unknown: 'Commande inconnue :',
+    result: 'Résultat',
+    error: 'Erreur',
+    undefined: 'Symbole indéfini',
+    syntax: 'Erreur de syntaxe',
+    nan: 'Opération invalide (NaN)',
+    infinity: 'Résultat infini'
+  },
+  es: {
+    welcome: '¡Bienvenido a Numtap! Escribe ".help" para comandos',
+    goodbye: '¡Adiós! Total de cálculos:',
+    help: `
+    Comandos:
+    .help, .h      - Mostrar esta ayuda
+    .exit, .q      - Salir
+    .version, .v   - Mostrar versión
+    .last, .l      - Mostrar último resultado
+    .history, .his - Mostrar historial de cálculos
+    .clear, .cls   - Limpiar pantalla
+    `,
+    last: 'Último resultado:',
+    noResult: 'Aún no hay resultados.',
+    history: 'Historial de cálculos:',
+    noHistory: 'El historial está vacío.',
+    unknown: 'Comando desconocido:',
+    result: 'Resultado',
+    error: 'Error',
+    undefined: 'Símbolo no definido',
+    syntax: 'Error de sintaxis',
+    nan: 'Operación inválida (NaN)',
+    infinity: 'Resultado infinito'
+  },
+  de: {
+    welcome: 'Willkommen bei Numtap! Gib ".help" für Befehle ein',
+    goodbye: 'Auf Wiedersehen! Gesamtzahl der Berechnungen:',
+    help: `
+    Befehle:
+    .help, .h      - Diese Hilfe anzeigen
+    .exit, .q      - Beenden
+    .version, .v   - Version anzeigen
+    .last, .l      - Letztes Ergebnis anzeigen
+    .history, .his - Berechnungsverlauf anzeigen
+    .clear, .cls   - Bildschirm löschen
+    `,
+    last: 'Letztes Ergebnis:',
+    noResult: 'Noch keine Ergebnisse.',
+    history: 'Berechnungsverlauf:',
+    noHistory: 'Verlauf ist leer.',
+    unknown: 'Unbekannter Befehl:',
+    result: 'Ergebnis',
+    error: 'Fehler',
+    undefined: 'Undefiniertes Symbol',
+    syntax: 'Syntaxfehler',
+    nan: 'Ungültige Operation (NaN)',
+    infinity: 'Ergebnis ist unendlich'
+  },
+  pt: {
+    welcome: 'Bem-vindo ao Numtap! Digite ".help" para comandos',
+    goodbye: 'Adeus! Total de cálculos:',
+    help: `
+    Comandos:
+    .help, .h      - Mostrar esta ajuda
+    .exit, .q      - Sair
+    .version, .v   - Mostrar versão
+    .last, .l      - Mostrar último resultado
+    .history, .his - Mostrar histórico de cálculos
+    .clear, .cls   - Limpar tela
+    `,
+    last: 'Último resultado:',
+    noResult: 'Ainda não há resultados.',
+    history: 'Histórico de cálculos:',
+    noHistory: 'O histórico está vazio.',
+    unknown: 'Comando desconhecido:',
+    result: 'Resultado',
+    error: 'Erro',
+    undefined: 'Símbolo indefinido',
+    syntax: 'Erro de sintaxe',
+    nan: 'Operação inválida (NaN)',
+    infinity: 'Resultado infinito'
+  }
 };
 
 /**
@@ -29,7 +190,7 @@ const errorMessages = {
  */
 function evalExpression(expr) {
   const lang = process.env.LANG || 'en'; // Default to English
-  const messages = errorMessages[lang] || errorMessages.en; // Fallback to English messages
+  const langMessages = messages[lang] || messages.en; // Fallback to English messages
 
   try {
     let result;
@@ -67,33 +228,33 @@ function evalExpression(expr) {
     // Check for NaN or Infinity results
     if (typeof result === 'number') {
       if (isNaN(result)) {
-        throw new Error(messages.nan); // Handle NaN (e.g., 0 / 0)
+        throw new Error(langMessages.nan); // Handle NaN (e.g., 0 / 0)
       }
       if (!isFinite(result)) {
-        throw new Error(messages.infinity); // Handle Infinity (e.g., 5 / 0)
+        throw new Error(langMessages.infinity); // Handle Infinity (e.g., 5 / 0)
       }
     }
 
     return result;
   } catch (e) {
     // Pass through specific NaN or Infinity errors from above checks
-    if (e.message === messages.nan || e.message === messages.infinity) {
+    if (e.message === langMessages.nan || e.message === langMessages.infinity) {
       throw e;
     }
     // Customize other mathjs error messages for better UX
     let errorMessage = e.message.replace('mathjs:', '').trim();
     if (errorMessage.includes('Undefined symbol')) {
-      errorMessage = messages.undefined;
+      errorMessage = langMessages.undefined;
     } else if (errorMessage.includes('Unexpected operator')) {
-      errorMessage = messages.syntax;
+      errorMessage = langMessages.syntax;
     } else {
-      errorMessage = messages.syntax;
+      errorMessage = langMessages.syntax;
     }
     throw new Error(errorMessage);
   }
 }
 
-module.exports = { evalExpression, scope };
+module.exports = { evalExpression, scope, messages }; // Export messages for use in other modules
 
 // For manual testing during development
 if (require.main === module) {

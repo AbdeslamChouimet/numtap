@@ -1,28 +1,17 @@
 // src/quickMode.cjs - Quick mode for single expression evaluation
 
-const { evalExpression } = require('./utils.cjs');
+const { evalExpression, messages } = require('./utils.cjs');
 const chalk = require('chalk');
 
 // Preload mathjs to avoid delay on first evaluation
 require('./utils.cjs').evalExpression('1'); // Dummy call to initialize mathjs early
-
-// Language-specific output messages
-const messages = {
-  en: { result: 'Result', error: 'Error' },
-  ar: { result: 'النتيجة', error: 'خطأ' },
-  ru: { result: 'Результат', error: 'Ошибка' },
-  fr: { result: 'Résultat', error: 'Erreur' },
-  es: { result: 'Resultado', error: 'Error' },
-  de: { result: 'Ergebnis', error: 'Fehler' },
-  pt: { result: 'Resultado', error: 'Erro' }
-};
 
 /**
  * Evaluates a single mathematical expression and prints the result.
  * @param {string} expr - The expression to evaluate
  */
 function quickMode(expr) {
-  const lang = process.env.LANG || 'en'; // Default to English if not set
+  const lang = process.env.LANG || 'en'; // Default to English
   const langMessages = messages[lang] || messages.en; // Fallback to English
 
   try {

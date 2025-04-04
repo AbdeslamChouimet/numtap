@@ -3,51 +3,10 @@
 const readline = require('readline');
 const chalk = require('chalk');
 const figlet = require('figlet');
-const { evalExpression, scope } = require('./utils.cjs');
+const { evalExpression, scope, messages } = require('./utils.cjs');
 
 // Preload mathjs to avoid delay on first calculation
 require('./utils.cjs').evalExpression('1'); // Dummy call to initialize mathjs
-
-// Language-specific messages
-const messages = {
-  en: {
-    welcome: 'Welcome to Numtap! Type ".help" for commands',
-    goodbye: 'Goodbye! Total calculations:',
-    help: `
-    Commands:
-    .help, .h      - Show this help
-    .exit, .q      - Quit
-    .version, .v   - Show version
-    .last, .l      - Show last result
-    .history, .his - Show calculation history
-    .clear, .cls   - Clear screen
-    `,
-    last: 'Last result:',
-    noResult: 'No results yet.',
-    history: 'Calculation History:',
-    noHistory: 'History is empty.',
-    unknown: 'Unknown command:'
-  },
-  ar: {
-    welcome: 'مرحبًا بك في Numtap! اكتب ".help" للحصول على الأوامر',
-    goodbye: 'وداعًا! إجمالي الحسابات:',
-    help: `
-    الأوامر:
-    .help, .h      - عرض هذه المساعدة
-    .exit, .q      - إنهاء الجلسة
-    .version, .v   - عرض الإصدار
-    .last, .l      - عرض آخر نتيجة
-    .history, .his - عرض سجل الحسابات
-    .clear, .cls   - مسح الشاشة
-    `,
-    last: 'آخر نتيجة:',
-    noResult: 'لا توجد نتائج بعد.',
-    history: 'سجل الحسابات:',
-    noHistory: 'السجل فارغ.',
-    unknown: 'أمر غير معروف:'
-  }
-  // Can add more languages here
-};
 
 /**
  * Launches an interactive REPL session for Numtap.
@@ -70,7 +29,7 @@ function interactiveMode() {
 
   // Display logo and welcome message
   console.log(randomColor(figlet.textSync('Numtap', { font: 'Standard' })));
-console.log(chalk.yellowBright(langMessages.welcome + '\n')); // Bright yellow welcome message
+  console.log(chalk.yellowBright(langMessages.welcome + '\n')); // Bright yellow welcome message
 
   rl.on('line', (input) => {
     const trimmedInput = input.trim();
